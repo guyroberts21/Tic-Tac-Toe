@@ -1,0 +1,41 @@
+/* Declare CSS Variables */
+:root {
+    --border-setting: 1px solid black;
+}
+
+#gameboard {
+    margin: 150px auto;
+    width: 400px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+/* 
+Useful advice on CSS centering using the grid layout:
+https://stackoverflow.com/questions/45536537/centering-in-css-grid 
+*/
+#gameboard .board-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+}
+
+/* Tic Tac Toe board outline */
+.horizontal-left,
+.horizontal-right,
+.center {
+    border-bottom: var(--border-setting);
+}
+
+.horizontal-left,
+.bottom-left {
+    border-right: var(--border-setting);
+}
+
+.horizontal-right,
+.bottom-right {
+    border-left: var(--border-setting);
+}
