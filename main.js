@@ -1,4 +1,18 @@
+const player1Container = document.getElementById('player1')
+const player2Container = document.getElementById('player2')
 const boardSquares = document.querySelectorAll('.board-square');
+
+const displayController = (() => {
+    let player1Turn = true;
+
+    if (player1Turn) {
+        player1Container.backgroundColor = '#3ff2b6';
+    }
+
+    return {
+        player1Turn,
+    }
+})();
 
 const gameBoard = (() => { 
     let board = ['', '', '', '', '', '', '', '', ''];
@@ -9,9 +23,9 @@ const gameBoard = (() => {
 
 })();
 
-const createPlayer = name => {
-    
-}
+const createPlayer = (() => ({
+    score: 0,
+}));
 
 function render() {
     // Render the data from the board array
@@ -26,6 +40,9 @@ function addMark(e) {
     gameBoard.board[idx] = 'x';
     render();
 }
+
+const player1 = createPlayer();
+const player2 = createPlayer();
 
 boardSquares.forEach(square => square.addEventListener('click', addMark));
 render();
