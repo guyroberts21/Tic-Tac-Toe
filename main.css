@@ -3,12 +3,26 @@
     --border-setting: 1px solid black;
 }
 
+.wrapper {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+body {
+    font-size: 20px;
+    font-family: 'Work Sans', sans-serif;
+    background-color: #41B3A3;
+    margin: 0;
+}
+
 #gameboard {
     margin: 150px auto;
     width: 400px;
     height: 400px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 }
 
 /* 
@@ -19,7 +33,11 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3em;
+    font-size: 4em;
+}
+
+.slide-in {
+    animation: slide-in 0.25s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 /* Player container */
@@ -27,12 +45,17 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
     display: flex;
     justify-content: center;
     width: 400px;
-    margin: 0 auto;
+    margin: 20px auto;
+}
+
+.current-player {
+    background-color: #E27D60;
+    transition: background-color 0.3s ease-in;
 }
 
 .player-container .player {
-    border: var(--border-setting);
     padding: 10px 20px;
+    border-radius: 15px;
 }
 
 #player1 {
@@ -54,4 +77,14 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
 .horizontal-right,
 .bottom-right {
     border-left: var(--border-setting);
+}
+
+
+@keyframes slide-in {
+    0% {
+        font-size: 0;
+    }
+    100% {
+        font-size: 4em;
+    }
 }
