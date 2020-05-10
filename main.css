@@ -79,6 +79,10 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
     border-left: var(--border-setting);
 }
 
+footer {
+    text-align: center;
+    padding: 10px;
+}
 
 @keyframes slide-in {
     0% {
