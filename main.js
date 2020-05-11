@@ -1,6 +1,7 @@
 const gameControl = (() => {
-    const player1Container = document.getElementById('player1')
-    const player2Container = document.getElementById('player2')
+    const player1Container = document.getElementById('player1');
+    const player2Container = document.getElementById('player2');
+    const winnerText = document.querySelector('.winner-text');
 
     let player1Turn = true;
 
@@ -59,7 +60,12 @@ const gameControl = (() => {
 
             // Check win
             if (checkWin()) {
-                alert(`Player ${gameBoard.board[idx] === 'x' ? 1 : 2} wins!`);
+                // TODO - replace 'player 1/2' with player variables from player factory function
+                const winner = gameBoard.board[idx] === 'x' ? 'Player 1' : 'Player 2'; 
+                winnerText.textContent = `${winner} Wins!`;
+                winnerText.style.visibility = 'visible';
+                // Wait 3 seconds then reset board
+                setTimeout(gameBoard.clearBoard, 3000);
             }
         } else {
             return;
@@ -71,7 +77,8 @@ const gameControl = (() => {
     boardSquares.forEach(square => square.addEventListener('click', addMark));
 
     return {
-        render: render,
+        render,
+        winnerText
     }
 })();
 
@@ -79,8 +86,17 @@ const gameBoard = (() => {
     'use strict';
     let board = ['', '', '', '', '', '', '', '', ''];
 
+    function clearBoard() {
+        for (let i = 0; i < board.length; i++) {
+            board[i] = '';
+        }
+        gameControl.winnerText.style.visibility = 'hidden';
+        gameControl.render();
+    }
+
     return {
-        board: board,
+        board,
+        clearBoard
     };
 })();
 
