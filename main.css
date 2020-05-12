@@ -1,6 +1,6 @@
 /* Declare CSS Variables */
 :root {
-    --border-setting: 1px solid black;
+    --border-setting: 1px solid #000;
 }
 
 body {
@@ -10,13 +10,7 @@ body {
     margin: 0;
 }
 
-.wrapper {
-    padding-bottom: 2rem; /* Height of the footer */
-}
-
 #footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
     height: 2rem;
     text-align: center;
@@ -24,14 +18,14 @@ body {
 
 .winner-text {
     font-size: 2.5rem;
-    margin-top: 3.5rem; 
+    margin-top: 0; 
     text-align: center;
     color: #C38D9E;
     visibility: hidden;
 }
 
 #gameboard {
-    margin: 100px auto;
+    margin: 50px auto;
     width: 400px;
     height: 400px;
     display: grid;
@@ -48,6 +42,7 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
     justify-content: center;
     align-items: center;
     font-size: 4em;
+    transition: color 0.5s ease-in;
 }
 
 .slide-in {
@@ -60,9 +55,11 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
     justify-content: center;
     width: 400px;
     margin: 20px auto;
+    color: rgba(0, 0, 0, 0.4);
 }
 
 .current-player {
+    color: #000;
     background-color: #E27D60;
     transition: background-color 0.3s ease-in;
 }
@@ -70,6 +67,12 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
 .player-container .player {
     padding: 10px 20px;
     border-radius: 15px;
+}
+
+.player-scores {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0;
 }
 
 #player1 {
@@ -91,6 +94,11 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
 .horizontal-right,
 .bottom-right {
     border-left: var(--border-setting);
+}
+
+/* Winning Squares */
+.winning-square {
+    color: #E27D60;
 }
 
 @keyframes slide-in {

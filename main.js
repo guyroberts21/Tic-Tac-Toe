@@ -3,6 +3,8 @@ const gameControl = (() => {
     const player2Container = document.getElementById('player2');
     const winnerText = document.querySelector('.winner-text');
 
+    const transitionTime = 3000;
+
     let player1Turn = true;
 
     function render() {
@@ -29,6 +31,14 @@ const gameControl = (() => {
             let num2 = gameBoard.board[combo[1]];
             let num3 = gameBoard.board[combo[2]];  
             if ((num1 === num2 && num1 === num3 && num1 !== null) && num1 !== '') {
+                console.log(boardSquares[combo[0]], boardSquares[combo[1]], boardSquares[combo[2]]);
+                let winningSquares = [boardSquares[combo[0]], boardSquares[combo[1]], boardSquares[combo[2]]];
+                for (let square of winningSquares) {
+                    square.classList.add('winning-square');
+                    setTimeout(() => {
+                        square.classList.remove('winning-square');
+                    }, transitionTime);
+                }
                 return true;
             }
         }
@@ -38,7 +48,7 @@ const gameControl = (() => {
         let idx = parseInt(e.target.dataset.key);
         
         // Check if the board square is already taken or not
-        if (gameBoard.board[idx] == '') {
+        if (gameBoard.board[idx] == '' && !checkWin()) {
             if (player1Turn) {
                 gameBoard.board[idx] = 'x'; 
             } else {
@@ -61,11 +71,11 @@ const gameControl = (() => {
             // Check win
             if (checkWin()) {
                 // TODO - replace 'player 1/2' with player variables from player factory function
-                const winner = gameBoard.board[idx] === 'x' ? 'Player 1' : 'Player 2'; 
+                const winner = gameBoard.board[idx] === 'x' ? 'Player 1' : 'Player 2';
                 winnerText.textContent = `${winner} Wins!`;
                 winnerText.style.visibility = 'visible';
                 // Wait 3 seconds then reset board
-                setTimeout(gameBoard.clearBoard, 3000);
+                setTimeout(gameBoard.clearBoard, transitionTime);
             }
         } else {
             return;
@@ -78,7 +88,8 @@ const gameControl = (() => {
 
     return {
         render,
-        winnerText
+        winnerText,
+        boardSquares
     }
 })();
 
@@ -89,6 +100,7 @@ const gameBoard = (() => {
     function clearBoard() {
         for (let i = 0; i < board.length; i++) {
             board[i] = '';
+            gameControl.boardSquares[i].classList.remove('slide-in');
         }
         gameControl.winnerText.style.visibility = 'hidden';
         gameControl.render();
