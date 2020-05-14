@@ -93,6 +93,7 @@ const gameControl = (() => {
     }
 })();
 
+// Store gameBoard and functions in a module
 const gameBoard = (() => { 
     'use strict';
     let board = ['', '', '', '', '', '', '', '', ''];
@@ -111,6 +112,15 @@ const gameBoard = (() => {
         clearBoard
     };
 })();
+
+// Player factory function
+const createPlayer = ({ name }) => ({
+    name,
+    setUserName(userName) {
+        this.name = userName;
+        return this;
+    }
+});
 
 // Start the game
 gameControl.render();
