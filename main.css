@@ -1,6 +1,6 @@
 /* Declare CSS Variables */
 :root {
-    --border-setting: 1px solid #000;
+    --border-setting: 3px solid #000;
 }
 
 body {
@@ -11,9 +11,13 @@ body {
 }
 
 #footer {
+    position: absolute;
+    bottom: 0;
     width: 100%;
     height: 2rem;
     text-align: center;
+    opacity: 0.8;
+    font-style: italic;
 }
 
 .winner-text {
@@ -31,6 +35,19 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+}
+
+/* Refresh button */
+#refresh {
+    position: absolute;
+    top: 5em;
+    right: 1em;
+    cursor: pointer;
+}
+
+#refresh:hover {
+    transform: rotate(180deg);
+    transition: 0.3s linear;
 }
 
 /* 
@@ -71,7 +88,7 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
 
 .player-scores {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
     margin: 0;
 }
 
@@ -99,25 +116,6 @@ https://stackoverflow.com/questions/45536537/centering-in-css-grid
 /* Winning Squares */
 .winning-square {
     color: #E27D60;
-}
-
-/* Modal styling */
-.modal {
-    color: #000;
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #85DCBA;
-}
-
-.modal-content {
-    padding: 1em;
-    width: 100%;
 }
 
 @keyframes slide-in {

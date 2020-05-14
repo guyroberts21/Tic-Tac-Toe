@@ -1,7 +1,20 @@
+// Player factory function
+const createPlayer = ({ name }) => ({
+    name,
+    score: 0,
+    setUserName(userName) {
+        this.name = userName;
+        return this;
+    }
+});
+
 const gameControl = (() => {
     const player1Container = document.getElementById('player1');
     const player2Container = document.getElementById('player2');
     const winnerText = document.querySelector('.winner-text');
+
+    const player1 = createPlayer('Player 1');
+    const player2 = createPlayer('Player 2');
 
     const transitionTime = 3000;
 
@@ -26,6 +39,8 @@ const gameControl = (() => {
             [2, 4, 6]
         ];
 
+        // Pretty messy way of looping through the different ways to win the game
+        // TODO: Make a much cleaner solution to this problem
         for (let combo of combos) {
             let num1 = gameBoard.board[combo[0]];
             let num2 = gameBoard.board[combo[1]];
@@ -70,11 +85,15 @@ const gameControl = (() => {
 
             // Check win
             if (checkWin()) {
-                // TODO - replace 'player 1/2' with player variables from player factory function
-                const winner = gameBoard.board[idx] === 'x' ? 'Player 1' : 'Player 2';
+                const winner = gameBoard.board[idx] === 'x' ? player1.name : player2.name;
+                if (winner === player1.name) {
+                    player1.score++;
+                } else {
+                    player2.score++;
+                }
                 winnerText.textContent = `${winner} Wins!`;
                 winnerText.style.visibility = 'visible';
-                // Wait 3 seconds then reset board
+                // Wait some time then reset board
                 setTimeout(gameBoard.clearBoard, transitionTime);
             }
         } else {
@@ -98,6 +117,7 @@ const gameBoard = (() => {
     'use strict';
     let board = ['', '', '', '', '', '', '', '', ''];
 
+    
     function clearBoard() {
         for (let i = 0; i < board.length; i++) {
             board[i] = '';
@@ -107,20 +127,14 @@ const gameBoard = (() => {
         gameControl.render();
     }
 
+    const refreshBtn = document.getElementById('refresh');
+    refreshBtn.addEventListener('click', clearBoard)
+
     return {
         board,
         clearBoard
     };
 })();
-
-// Player factory function
-const createPlayer = ({ name }) => ({
-    name,
-    setUserName(userName) {
-        this.name = userName;
-        return this;
-    }
-});
 
 // Start the game
 gameControl.render();

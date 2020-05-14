@@ -1,0 +1,49 @@
+#modal {
+    transition: height 0.3s ease-in;
+}
+
+.modal {
+    color: #000;
+    /* display: none; */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 0%;
+    overflow: hidden;
+    background-color: #85DCBA;
+}
+
+.modal-content {
+    padding: 1em;
+    width: 100%;
+}
+
+#modalBtn {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    cursor: pointer;
+}
+
+#modalBtn:hover {
+    transform: rotate(90deg);
+    transition: 0.3s linear;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0.3em;
+    color: #000;
+    font-size: 3em;
+    transition: color 0.2s ease-in;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #E27D60;
+    text-decoration: none;
+    cursor: pointer;
+}
