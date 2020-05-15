@@ -99,17 +99,56 @@ const gameControl = (() => {
                 // Wait some time then reset board
                 setTimeout(gameBoard.clearBoard, transitionTime);
             }
+
+            // Check if board is full
+            if (gameBoard.board.every(square => square) && !checkWin()) {
+                winnerText.textContent = 'Tie Game';
+                winnerText.style.visibility = 'visible';
+                setTimeout(gameBoard.clearBoard, transitionTime);
+            }
         } else {
             return;
         }
+
     }
 
     // Allow player to add mark
     const boardSquares = document.querySelectorAll('.board-square');
     boardSquares.forEach(square => square.addEventListener('click', addMark));
 
+    // Change player names
+    const firstPlayerName = document.getElementById('player1-name');
+    const secondPlayerName = document.getElementById('player2-name');
+
+    function submitName(e) {
+        // Stop modal from auto-closing
+        e.preventDefault();
+
+        if (firstPlayerName.value) {
+            firstPlayer.setUserName(firstPlayerName.value);
+        }
+        if (secondPlayerName.value) {
+            secondPlayer.setUserName(secondPlayerName.value);
+        }
+
+        firstPlayerName.value = '';
+        secondPlayerName.value = '';
+
+        // Change on-screen names
+        player1Container.textContent = firstPlayer.name;
+        player2Container.textContent = secondPlayer.name;
+
+        const changesSavedText = document.getElementById('changes-saved');
+        changesSavedText.style.display = 'inline-block';
+    }
+
+    // Submit player names event 
+    const submitBtn = document.getElementById('submit-names');
+    submitBtn.addEventListener('click', submitName);
+
     return {
         render,
+        submitName,
         winnerText,
         boardSquares,
         firstPlayer,

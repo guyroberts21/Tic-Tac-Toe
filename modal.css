@@ -32,6 +32,18 @@
     width: 100%;
 }
 
+#changes-saved {
+    position: absolute;
+    top: 1em;
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: 200;
+    opacity: 50%;
+    color: #000;
+    display: none;
+    text-decoration: underline;
+}
+
 .player-names {
     position: relative;
     background-color: #41B3A3;
