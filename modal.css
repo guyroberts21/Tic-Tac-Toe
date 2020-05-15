@@ -15,11 +15,6 @@
     background-color: #85DCBA;
 }
 
-.modal-content {
-    padding: 1em;
-    width: 100%;
-}
-
 #modalBtn {
     position: absolute;
     top: 1em;
@@ -29,6 +24,57 @@
 
 #modalBtn:hover {
     transform: rotate(90deg);
+    transition: 0.3s linear;
+}
+
+.modal-content {
+    padding: 1em;
+    width: 100%;
+}
+
+.player-names {
+    position: relative;
+    background-color: #41B3A3;
+    border-radius: 10px;
+    width: 600px;
+    margin: 100px auto;
+    padding: 2em 2em 0.5em 2em;
+}
+
+.player-names * {
+    display: block;
+}
+
+.player-names label {
+    text-align: center;
+    font-size: 1.5em;
+    opacity: 0.6;
+}
+
+.player-names input[type=text] {
+    width: 60%;
+    padding: 10px 15px;
+    margin: 15px auto;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #85DCBA;
+}
+
+.player-names input[type=text]::placeholder {
+    font-size: 1.3em;
+}
+
+.player-names input[type=submit] {
+    width: 30%;
+    font-size: 1em;
+    padding: 10px 15px;
+    margin: 25px auto;
+    border: 1px solid #85DCBA;
+    border-radius: 2px;
+}
+
+.player-names input[type=submit]:hover {
+    background-color: #E8A87C;
     transition: 0.3s linear;
 }
 

@@ -1,5 +1,5 @@
 // Player factory function
-const createPlayer = ({ name }) => ({
+const createPlayer = name => ({
     name,
     score: 0,
     setUserName(userName) {
@@ -11,10 +11,12 @@ const createPlayer = ({ name }) => ({
 const gameControl = (() => {
     const player1Container = document.getElementById('player1');
     const player2Container = document.getElementById('player2');
+    const player1Score = document.getElementById('player1-score');
+    const player2Score = document.getElementById('player2-score');
     const winnerText = document.querySelector('.winner-text');
 
-    const player1 = createPlayer('Player 1');
-    const player2 = createPlayer('Player 2');
+    const firstPlayer = createPlayer('Player 1');
+    const secondPlayer = createPlayer('Player 2');
 
     const transitionTime = 3000;
 
@@ -85,13 +87,14 @@ const gameControl = (() => {
 
             // Check win
             if (checkWin()) {
-                const winner = gameBoard.board[idx] === 'x' ? player1.name : player2.name;
-                if (winner === player1.name) {
-                    player1.score++;
+                const winner = gameBoard.board[idx] === 'x' ? firstPlayer : secondPlayer;
+                winner.score++;
+                if (winner === firstPlayer) {
+                    player1Score.textContent = winner.score;
                 } else {
-                    player2.score++;
+                    player2Score.textContent = winner.score;
                 }
-                winnerText.textContent = `${winner} Wins!`;
+                winnerText.textContent = `${winner.name} Wins!`;
                 winnerText.style.visibility = 'visible';
                 // Wait some time then reset board
                 setTimeout(gameBoard.clearBoard, transitionTime);
@@ -108,7 +111,9 @@ const gameControl = (() => {
     return {
         render,
         winnerText,
-        boardSquares
+        boardSquares,
+        firstPlayer,
+        secondPlayer
     }
 })();
 
