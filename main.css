@@ -19,6 +19,24 @@ body {
     opacity: 0.8;
     font-style: italic;
     z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+
+#footer img {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+#footer a {
+    color: #e2e2e2;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+#footer a:hover {
+    color: #000;
+    transition: 0.2s ease-in-out;
 }
 
 .winner-text {
