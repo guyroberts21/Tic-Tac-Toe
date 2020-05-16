@@ -21,6 +21,7 @@ const gameControl = (() => {
     const transitionTime = 3000;
 
     let player1Turn = true;
+    let AIEnabled = false;
 
     function render() {
         // Render the data from the board array
@@ -63,11 +64,37 @@ const gameControl = (() => {
 
     function addMark(e) {
         let idx = parseInt(e.target.dataset.key);
-        
+
+        function bestMove() {
+            let bestScore = -Infinity;
+            let optimalMove;
+            // AI to make its turn
+            let available = [];
+            for (let i = 0; i < 9; i++) {
+                // check if spot is available
+                if (gameBoard.board[i] === '') {
+                    gameBoard.board[i] = 'o';
+                    let score = minimax(gameBoard.board);
+                    gameBoard.board[i] = '';
+                    if (score > bestScore) {
+                        bestScore = score;
+                        optimalMove = i;
+                    }
+                }
+            }
+        }
+
+        function minimax(board) {
+            return 1;
+        }
+
         // Check if the board square is already taken or not
         if (gameBoard.board[idx] == '' && !checkWin()) {
             if (player1Turn) {
                 gameBoard.board[idx] = 'x'; 
+            } else if (AIEnabled) {
+                bestMove();
+                render();
             } else {
                 gameBoard.board[idx] = 'o';
             }
@@ -146,13 +173,28 @@ const gameControl = (() => {
     const submitBtn = document.getElementById('submit-names');
     submitBtn.addEventListener('click', submitName);
 
+
+    const player2NameContainer = document.querySelector('.player2-name-container');
+    const player2NameInput = player2NameContainer.querySelector('input');
+    function toggleAI(e) {
+        AIEnabled = !AIEnabled;
+        player2NameInput.disabled = !player2NameInput.disabled;
+        player2NameContainer.classList.toggle('ai-enabled');
+        if (this.checked) {
+            player2Container.textContent = 'Computer';
+        } else {
+            player2Container.textContent = secondPlayer.name;
+        }
+    }
+    
+    const slider = document.querySelector('label.switch input');
+    slider.addEventListener('click', toggleAI);    
+
     return {
         render,
         submitName,
         winnerText,
-        boardSquares,
-        firstPlayer,
-        secondPlayer
+        boardSquares
     }
 })();
 
@@ -171,6 +213,7 @@ const gameBoard = (() => {
         gameControl.render();
     }
 
+    // Clean board on click
     const refreshBtn = document.getElementById('refresh');
     refreshBtn.addEventListener('click', clearBoard)
 

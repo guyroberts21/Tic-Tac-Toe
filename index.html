@@ -60,7 +60,7 @@
         <div class="modal-content">
             <div id="changes-saved">Changes saved</div>
             <div class="ai-selection">
-                <label class="switch">
+                <label id="slider" class="switch">
                     <input type="checkbox">
                     <span class="slider round"></span>
                 </label>
@@ -68,7 +68,7 @@
                     <div class="ai-normal toggle-mode">NORMAL</div>
                     <div class="ai-insane toggle-mode">
                     <img src="img/skull-30.png">  
-                    INSANE
+                    <span>INSANE</span>
                     <img src="img/skull-30.png">
                     </div>
             </div>
@@ -76,8 +76,10 @@
                 <form>
                     <label for="player1-name">PLAYER ONE</label>
                     <input type="text" id="player1-name" placeholder="Player 1"> 
-                    <label for="player2-name">PLAYER TWO</label> 
-                    <input type="text" id="player2-name" placeholder="Player 2">
+                    <div class="player2-name-container">
+                        <label for="player2-name">PLAYER TWO</label> 
+                        <input type="text" id="player2-name" placeholder="Player 2">
+                    </div>
 
                     <input type="submit" id="submit-names" value="Submit">
                 </form>
