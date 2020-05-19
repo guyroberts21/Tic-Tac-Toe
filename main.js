@@ -14,21 +14,40 @@ const gameControl = (() => {
     const player1Score = document.getElementById('player1-score');
     const player2Score = document.getElementById('player2-score');
     const winnerText = document.querySelector('.winner-text');
-
-    const firstPlayer = createPlayer('Player 1');
-    const secondPlayer = createPlayer('Player 2');
-
+    
+    let firstPlayer = createPlayer('Player 1');
+    let secondPlayer = createPlayer('Player 2');
+    
     const transitionTime = 3000;
-
+    
     let player1Turn = true;
     let AIEnabled = false;
-
+    
     function render() {
         // Render the data from the board array
         for (let i = 0; i < gameBoard.board.length; i++) {
             boardSquares[i].textContent = gameBoard.board[i];
         }
     }
+
+    const player2NameContainer = document.querySelector('.player2-name-container');
+    const player2NameInput = player2NameContainer.querySelector('input');
+    function toggleAI(e) {
+        AIEnabled = !AIEnabled;
+        player2NameInput.disabled = !player2NameInput.disabled;
+        player2NameContainer.classList.toggle('ai-enabled');
+        document.querySelector('.ai-normal').classList.toggle('ai-normal-on');
+        if (this.checked) {
+            secondPlayer = createPlayer('Computer');
+            // Auto-enable normal mode-on
+        } else {
+            secondPlayer = createPlayer('Player 2');
+        }
+        player2Container.textContent = secondPlayer.name;
+    }
+    
+    const slider = document.querySelector('label.switch input');
+    slider.addEventListener('click', toggleAI);    
 
     function checkWin() {
         let combos = [
@@ -74,7 +93,7 @@ const gameControl = (() => {
                 // check if spot is available
                 if (gameBoard.board[i] === '') {
                     gameBoard.board[i] = 'o';
-                    let score = minimax(gameBoard.board);
+                    let score = minimax(gameBoard.board, 0, false);
                     gameBoard.board[i] = '';
                     if (score > bestScore) {
                         bestScore = score;
@@ -82,19 +101,26 @@ const gameControl = (() => {
                     }
                 }
             }
+            gameBoard.board[optimalMove] = 'o';
         }
 
-        function minimax(board) {
+        let scores = {
+            X: 1,
+            O: -1,
+            tie: 0
+        }
+
+        function minimax(board, depth, isMaximising) {
             return 1;
         }
 
         // Check if the board square is already taken or not
         if (gameBoard.board[idx] == '' && !checkWin()) {
-            if (player1Turn) {
+            if (AIEnabled) {
                 gameBoard.board[idx] = 'x'; 
-            } else if (AIEnabled) {
                 bestMove();
-                render();
+            } else if (player1Turn) {
+                gameBoard.board[idx] = 'x';
             } else {
                 gameBoard.board[idx] = 'o';
             }
@@ -174,21 +200,6 @@ const gameControl = (() => {
     submitBtn.addEventListener('click', submitName);
 
 
-    const player2NameContainer = document.querySelector('.player2-name-container');
-    const player2NameInput = player2NameContainer.querySelector('input');
-    function toggleAI(e) {
-        AIEnabled = !AIEnabled;
-        player2NameInput.disabled = !player2NameInput.disabled;
-        player2NameContainer.classList.toggle('ai-enabled');
-        if (this.checked) {
-            player2Container.textContent = 'Computer';
-        } else {
-            player2Container.textContent = secondPlayer.name;
-        }
-    }
-    
-    const slider = document.querySelector('label.switch input');
-    slider.addEventListener('click', toggleAI);    
 
     return {
         render,

@@ -10,7 +10,7 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 0%;
     overflow: hidden;
     background-color: #85DCBA;
 }
@@ -63,14 +63,12 @@
     font-family: 'Mountains of Christmas', cursive;
 }
 
-.ai-insane:hover,
 .ai-insane-on {
     color: #fff;
     background-color: #7a0012;
     letter-spacing: 5px;
 }
 
-.ai-insane:hover img,
 .ai-insane-on img {
     background-color: #eee;
     border-radius: 50%;
