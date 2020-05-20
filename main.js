@@ -8,6 +8,63 @@ const createPlayer = name => ({
     }
 });
 
+const AIControl = (() => {
+    function bestMove() {
+        let bestScore = -Infinity;
+        let optimalMove;
+        // AI to make its turn
+        let available = [];
+        for (let i = 0; i < 9; i++) {
+            // check if spot is available
+            if (gameBoard.board[i] === '') {
+                gameBoard.board[i] = 'o';
+                let score = minimax(gameBoard.board, 0, false);
+                gameBoard.board[i] = '';
+                if (score > bestScore) {
+                    bestScore = score;
+                    optimalMove = i;
+                }
+            }
+        }
+        gameBoard.board[optimalMove] = 'o';
+    }
+
+    let scores = {
+        X: 1,
+        O: -1,
+        tie: 0
+    }
+
+    function minimax(board, depth, isMaximising) {
+        return 1;
+    }
+})();
+
+// Store gameBoard and functions in a module
+const gameBoard = (() => { 
+    'use strict';
+    let board = ['', '', '', '', '', '', '', '', ''];
+
+    
+    function clearBoard() {
+        for (let i = 0; i < board.length; i++) {
+            board[i] = '';
+            gameControl.boardSquares[i].classList.remove('slide-in');
+        }
+        gameControl.winnerText.style.visibility = 'hidden';
+        gameControl.render();
+    }
+
+    // Clean board on click
+    const refreshBtn = document.getElementById('refresh');
+    refreshBtn.addEventListener('click', clearBoard)
+
+    return {
+        board,
+        clearBoard
+    };
+})();
+
 const gameControl = (() => {
     const player1Container = document.getElementById('player1');
     const player2Container = document.getElementById('player2');
@@ -33,13 +90,18 @@ const gameControl = (() => {
     const player2NameContainer = document.querySelector('.player2-name-container');
     const player2NameInput = player2NameContainer.querySelector('input');
     function toggleAI(e) {
+        const aiNormal = document.querySelector('.ai-normal');
+        const aiInsane = document.querySelector('.ai-insane');
+
         AIEnabled = !AIEnabled;
         player2NameInput.disabled = !player2NameInput.disabled;
         player2NameContainer.classList.toggle('ai-enabled');
-        document.querySelector('.ai-normal').classList.toggle('ai-normal-on');
+        aiNormal.classList.remove('ai-normal-on');
+        aiInsane.classList.remove('ai-insane-on');
         if (this.checked) {
             secondPlayer = createPlayer('Computer');
             // Auto-enable normal mode-on
+            aiNormal.classList.add('ai-normal-on');
         } else {
             secondPlayer = createPlayer('Player 2');
         }
@@ -83,36 +145,6 @@ const gameControl = (() => {
 
     function addMark(e) {
         let idx = parseInt(e.target.dataset.key);
-
-        function bestMove() {
-            let bestScore = -Infinity;
-            let optimalMove;
-            // AI to make its turn
-            let available = [];
-            for (let i = 0; i < 9; i++) {
-                // check if spot is available
-                if (gameBoard.board[i] === '') {
-                    gameBoard.board[i] = 'o';
-                    let score = minimax(gameBoard.board, 0, false);
-                    gameBoard.board[i] = '';
-                    if (score > bestScore) {
-                        bestScore = score;
-                        optimalMove = i;
-                    }
-                }
-            }
-            gameBoard.board[optimalMove] = 'o';
-        }
-
-        let scores = {
-            X: 1,
-            O: -1,
-            tie: 0
-        }
-
-        function minimax(board, depth, isMaximising) {
-            return 1;
-        }
 
         // Check if the board square is already taken or not
         if (gameBoard.board[idx] == '' && !checkWin()) {
@@ -199,39 +231,12 @@ const gameControl = (() => {
     const submitBtn = document.getElementById('submit-names');
     submitBtn.addEventListener('click', submitName);
 
-
-
     return {
         render,
         submitName,
         winnerText,
         boardSquares
     }
-})();
-
-// Store gameBoard and functions in a module
-const gameBoard = (() => { 
-    'use strict';
-    let board = ['', '', '', '', '', '', '', '', ''];
-
-    
-    function clearBoard() {
-        for (let i = 0; i < board.length; i++) {
-            board[i] = '';
-            gameControl.boardSquares[i].classList.remove('slide-in');
-        }
-        gameControl.winnerText.style.visibility = 'hidden';
-        gameControl.render();
-    }
-
-    // Clean board on click
-    const refreshBtn = document.getElementById('refresh');
-    refreshBtn.addEventListener('click', clearBoard)
-
-    return {
-        board,
-        clearBoard
-    };
 })();
 
 // Start the game
